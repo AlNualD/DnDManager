@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FontH1">
+        <item name="android:textSize">36pt</item>
+        <item name="fontFamily">@font/arima_madurai_bold</item>
+    </style>
+
+    <style name="FontH2">
+        <item name="android:textSize">32pt</item>
+        <item name="fontFamily">@font/arima_madurai_light</item>
+    </style>
+
+    <style name="FontSubtitle">
+        <item name="fontFamily">@font/arima_madurai_extralight</item>
+        <item name="android:textSize">20pt</item>
+    </style>
+
+    <style name="FontBody">
+        <item name="fontFamily">@font/arima_madurai_medium</item>
+        <item name="android:textSize">18pt</item>
+    </style>
+
+    <style name="FontButton">
+        <item name="fontFamily">@font/arima_madurai_extrabold</item>
+        <item name="android:textSize">10pt</item>
+    </style>
+
+    <style name="FontSecondary">
+        <item name="fontFamily">@font/arima_madurai_extralight</item>
+        <item name="android:textSize">14pt</item>
+    </style>
+
+    <style name="FontBodyCaption">
+        <item name="fontFamily">@font/arima_madurai_light</item>
+        <item name="android:textSize">10pt</item>
+    </style>
+
+</resources>

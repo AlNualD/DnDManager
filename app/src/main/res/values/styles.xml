@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PrimaryButton">
+        <item name="android:textAppearance">@style/FontButton</item>
+        <item name="android:textColor">@color/background_light</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/primary_bronze</item>
+
+    </style>
+
+
+    <style name="SecondaryButton">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:textAppearance">@style/FontButton</item>
+        <item name="android:textColor">@color/primary_bronze</item>
+        <item name="strokeColor">@color/primary_bronze</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+    <style name="SecondaryButton.Inactive">
+        <item name="android:textColor">@color/primary_bronze_45</item>
+        <item name="strokeColor">@color/primary_bronze_45</item>
+    </style>
+
+</resources>

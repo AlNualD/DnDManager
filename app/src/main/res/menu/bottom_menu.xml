@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/charactersList"
+        android:icon="@drawable/ic_man"
+        android:title="Character" />
+    <item
+        android:id="@+id/spellsList"
+        android:icon="@drawable/ic_star"
+        android:title="Spells" />
+    <item
+        android:id="@+id/skillsList"
+        android:title="Skills" />
+</menu>
