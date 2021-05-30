@@ -126,21 +126,43 @@ public class LoginFragment extends Fragment {
                     User user = new User();
                     user.setLogin(userLogin);
                     AuthService.getInstance()
-                            .getRestUserAPI()
-                            .loginUser(user.getLogin())
+                            .getRestUserAPIv2()
+                            .loginUser(userLogin)
                             .enqueue(new Callback<User>() {
                                 @Override
                                 public void onResponse(Call<User> call, Response<User> response) {
-                                    if(response.code() == HttpStatus.OK.value()) {
+                                    if(response.isSuccessful() && response.body() != null) {
                                         AuthSuccess(response.body());
+                                    } else {
+                                        Toast.makeText(getContext(),"Invalid data!", Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
 
                                 @Override
                                 public void onFailure(Call<User> call, Throwable t) {
+                                    Toast.makeText(getContext(),"Invalid data!", Toast.LENGTH_SHORT).show();
 
                                 }
                             });
+
+//                    AuthService.getInstance()
+//                            .getRestUserAPI()
+//                            .loginUser(user.getLogin())
+//                            .enqueue(new Callback<User>() {
+//                                @Override
+//                                public void onResponse(Call<User> call, Response<User> response) {
+//                                    if(response.code() == HttpStatus.OK.value()) {
+//                                        AuthSuccess(response.body());
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<User> call, Throwable t) {
+//                                    Toast.makeText(getContext(),"Invalid data!", Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            });
                     //userAuth.loginUser(user,handler);
                 } else {
                     Toast.makeText(getContext(),"Invalid data!", Toast.LENGTH_SHORT).show();
@@ -175,39 +197,39 @@ public class LoginFragment extends Fragment {
 
     }
 
-
-    static class UserHandler extends Handler {
-        WeakReference<LoginFragment> loginFragmentWeakReference;
-        public UserHandler(LoginFragment fragment) {
-            loginFragmentWeakReference = new WeakReference<>(fragment);
-        }
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            LoginFragment fragment = loginFragmentWeakReference.get();
-            if(fragment != null) {
-
-                AuthStatus status = AuthStatus.getStatus(msg.what);
-                switch (status) {
-                    case STATUS_LOGIN_OK:
-                    case STATUS_SIGHUP_OK :
-                        fragment.AuthSuccess((User) msg.obj);
-                        //activity.startApp((User) msg.obj);
-                        break;
-                    case STATUS_LOGIN_FAIL:
-                    case STATUS_SIGNHUP_FAIL:
-                        Toast.makeText(fragment.getContext(),"Login Fail", Toast.LENGTH_SHORT).show();
-                        //Toast toast = Toast.makeText(activity.getApplicationContext(),"WRONG LOGIN TRY AGAIN",Toast.LENGTH_SHORT);
-                        //toast.show();
-                        break;
-                    case ERROR: System.out.println("ERROR");
-                        break;
-
-                }
-            }
-        }
-    }
+//
+//    static class UserHandler extends Handler {
+//        WeakReference<LoginFragment> loginFragmentWeakReference;
+//        public UserHandler(LoginFragment fragment) {
+//            loginFragmentWeakReference = new WeakReference<>(fragment);
+//        }
+//
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+//            super.handleMessage(msg);
+//            LoginFragment fragment = loginFragmentWeakReference.get();
+//            if(fragment != null) {
+//
+//                AuthStatus status = AuthStatus.getStatus(msg.what);
+//                switch (status) {
+//                    case STATUS_LOGIN_OK:
+//                    case STATUS_SIGHUP_OK :
+//                        fragment.AuthSuccess((User) msg.obj);
+//                        //activity.startApp((User) msg.obj);
+//                        break;
+//                    case STATUS_LOGIN_FAIL:
+//                    case STATUS_SIGNHUP_FAIL:
+//                        Toast.makeText(fragment.getContext(),"Login Fail", Toast.LENGTH_SHORT).show();
+//                        //Toast toast = Toast.makeText(activity.getApplicationContext(),"WRONG LOGIN TRY AGAIN",Toast.LENGTH_SHORT);
+//                        //toast.show();
+//                        break;
+//                    case ERROR: System.out.println("ERROR");
+//                        break;
+//
+//                }
+//            }
+//        }
+//    }
 
 
 }

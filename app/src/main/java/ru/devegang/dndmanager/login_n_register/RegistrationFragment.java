@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -105,47 +106,67 @@ public class RegistrationFragment extends Fragment {
                 if(checkUser(user)) {
 
                     AuthService.getInstance()
-                            .getRestUserAPI()
+                            .getRestUserAPIv2()
                             .registerUser(user)
-                            .enqueue(new Callback<ResponseBody>() {
+                            .enqueue(new Callback<User>() {
                                 @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    if(response.code() == HttpStatus.OK.value()) {
+                                public void onResponse(Call<User> call, Response<User> response) {
+                                    if(response.isSuccessful() && response.body()!=null) {
+                                        AuthSuccess(response.body());
+                                    } else {
+                                        Toast.makeText(getContext(),"Invalid data!", Toast.LENGTH_SHORT).show();
 
-                                        AuthService.getInstance()
-                                                .getRestUserAPI()
-                                                .loginUser(user.getLogin())
-                                                .enqueue(new Callback<User>() {
-                                                    @Override
-                                                    public void onResponse(Call<User> call, Response<User> response) {
-                                                        if(response.code() == HttpStatus.OK.value() && response.body()!= null){
-                                                            SharedPreferences preferences = getActivity().getSharedPreferences("USER_INF",MODE_PRIVATE);
-                                                            preferences.edit()
-                                                                    .putLong("USER_ID",response.body().getId())
-                                                                    .putString("USER_NAME",response.body().getName())
-                                                                    .apply();
-
-                                                            Navigation.findNavController(view).navigate(R.id.mainActivity);
-
-
-                                                        } else {
-                                                            Toast.makeText(view.getContext(),"Error", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<User> call, Throwable t) {
-                                                        Toast.makeText(view.getContext(),"Error", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
                                     }
                                 }
 
                                 @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(view.getContext(),"Error", Toast.LENGTH_SHORT).show();
+                                public void onFailure(Call<User> call, Throwable t) {
+                                    Toast.makeText(getContext(),"Invalid data!", Toast.LENGTH_SHORT).show();
+
                                 }
                             });
+
+//                    AuthService.getInstance()
+//                            .getRestUserAPI()
+//                            .registerUser(user)
+//                            .enqueue(new Callback<Void>() {
+//                                @Override
+//                                public void onResponse(Call<Void> call, Response<Void> response) {
+//                                    if(response.isSuccessful()) {
+//                                        AuthService.getInstance().getRestUserAPI()
+//                                                .loginUser(user.getLogin())
+//                                                .enqueue(new Callback<User>() {
+//                                                    @Override
+//                                                    public void onResponse(Call<User> call, Response<User> response) {
+//                                                        if(response.isSuccessful() && response.body()!= null) {
+//                                                            SharedPreferences preferences = getActivity().getSharedPreferences("USER_INF",MODE_PRIVATE);
+//                                                            preferences.edit()
+//                                                                    .putLong("USER_ID",response.body().getId())
+//                                                                    .putString("USER_NAME",response.body().getName())
+//                                                                    .apply();
+//
+//                                                            Navigation.findNavController(view).navigate(R.id.mainActivity);
+//
+//                                                        } else {
+//                                                            Toast.makeText(getContext(),"Err", Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                                                    }
+//                                                });
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<Void> call, Throwable t) {
+//                                    Toast.makeText(getContext(),"grr",Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            });
+//
 
                 } else {
                     Toast.makeText(view.getContext(),"Incorrect Data",Toast.LENGTH_SHORT).show();
@@ -157,7 +178,27 @@ public class RegistrationFragment extends Fragment {
         return rootView;
     }
 
+    private void AuthSuccess(User user) {
+
+        Toast.makeText(this.getContext(),user.getName() + " AuthSuccess!",Toast.LENGTH_SHORT).show();
+
+        saveUser(user);
+
+        Navigation.findNavController(this.getView()).navigate(R.id.mainActivity);
+
+    }
+
+
+    private void saveUser(User user) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("USER_INF",MODE_PRIVATE);
+        preferences.edit()
+                .putLong("USER_ID",user.getId())
+                .putString("USER_NAME",user.getName())
+                .apply();
+
+    }
+
     boolean checkUser (User user) {
-        return user.getLogin() != null && user.getName() != null;
+        return user.getLogin() != null && !user.getLogin().isEmpty() && user.getName() != null && !user.getName().isEmpty();
     }
 }

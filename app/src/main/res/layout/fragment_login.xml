@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_light"
     tools:context=".login_n_register.LoginFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,10 +16,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="32dp"
         android:outlineProvider="none"
         android:singleLine="false"
-        android:text="@string/sign_up"
+        android:text="@string/create_str"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
@@ -28,10 +29,10 @@
         style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/log_in"
+        android:text="@string/log_in_str"
         app:layout_constraintEnd_toStartOf="@+id/buttonRegistration"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
@@ -40,34 +41,34 @@
         android:id="@+id/etLoginLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
-        android:contentDescription="@string/login"
+        android:layout_marginEnd="32dp"
+        android:autofillHints="@string/login"
+        android:contentDescription="Логин"
         android:ems="10"
-        android:hint="@string/login"
+        android:hint="@string/login_str"
         android:inputType="textPersonName"
         android:textAppearance="@style/FontBodyCaption"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:autofillHints="@string/login" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/etLoginPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="32dp"
+        android:autofillHints="@string/password"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="@string/password_str"
         android:inputType="textPassword"
         android:textAppearance="@style/FontBodyCaption"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLoginLogin"
-        android:autofillHints="@string/password" />
+        app:layout_constraintTop_toBottomOf="@+id/etLoginLogin" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -77,12 +78,12 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="64dp"
+        android:contentDescription="@string/logo"
         android:src="@drawable/ic_logo_dice"
         app:layout_constraintBottom_toTopOf="@+id/etLoginLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/primary_bronze"
-        android:contentDescription="@string/logo" />
+        app:tint="@color/primary_bronze" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

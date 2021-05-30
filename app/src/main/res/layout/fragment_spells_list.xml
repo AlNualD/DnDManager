@@ -11,6 +11,7 @@
         android:id="@+id/rvSpellsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_light"
         tools:layout_editor_absoluteX="69dp"
         tools:layout_editor_absoluteY="166dp" />
 
@@ -22,6 +23,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
+        android:tint="@color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/add_new_spell"
