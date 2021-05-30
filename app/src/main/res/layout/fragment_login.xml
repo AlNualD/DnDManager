@@ -7,7 +7,6 @@
     android:background="@color/background_light"
     tools:context=".login_n_register.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:id="@+id/buttonRegistration"
