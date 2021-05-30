@@ -26,5 +26,17 @@ public class NetworkService {
         return  retrofit.create(RestCharacterAPI.class);
     }
 
+    public RestCharacterAPIv2 getRestCharacterAPIv2() {
+        return retrofit.create(RestCharacterAPIv2.class);
+    }
+
+    public RestDnD5APIv2 getRestDnD5APIv2() {
+        return retrofit.create(RestDnD5APIv2.class);
+    }
+
+    public RestRollingAPIv2 getRestRollingAPIv2() {
+        return retrofit.create(RestRollingAPIv2.class);
+    }
+
 
 }
