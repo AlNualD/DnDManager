@@ -2,6 +2,7 @@ package ru.devegang.dndmanager.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    @Expose(serialize = false)
     private long id;
     String name;
     String login;
+    @Expose(serialize = false)
     int character_count = 0;
 //
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)

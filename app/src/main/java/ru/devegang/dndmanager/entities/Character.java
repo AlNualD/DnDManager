@@ -19,49 +19,25 @@ import lombok.Setter;
 @Setter
 public class Character {
 
-    @SerializedName("id")
-    @Expose
+    @Expose(serialize = false)
     private long id;
 
 //    @Column(name = "user_id")
 //    private long user_id;
 
 
-    @SerializedName("name")
-    @Expose
     String name;
-
-    @SerializedName("classC")
-    @Expose
     String classC;
-
-    @SerializedName("race")
-    @Expose
     String race;
-
-    @SerializedName("lvl")
-    @Expose
     int lvl;
-
-
-    @SerializedName("hp_cur")
-    @Expose
+    int healthDice = 1;
     int hp_cur;
-    @SerializedName("hp_max")
-    @Expose
-    int hp_max;
-
-    @SerializedName("alignment")
-    @Expose
+    int hp_max = 1;
     String alignment;
-
-    @SerializedName("spells_total")
-    @Expose
     int spells_total;
-
-    @SerializedName("money")
-    @Expose
     double money;
+    int profBonus = 1;
+    String description = "";
 
 
     @JsonIgnore

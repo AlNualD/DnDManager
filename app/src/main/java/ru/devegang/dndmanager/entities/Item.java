@@ -13,20 +13,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Item {
-   @Expose
+   @Expose(serialize = false)
     private long id;
 
-    @JsonIgnore
-    private Character character;
-    private long characterID;
-
-    @Expose
     String name;
-
-    @Expose
     String definition;
-
-    @Expose
     double weight = 0;
+    String formula;
 }
 

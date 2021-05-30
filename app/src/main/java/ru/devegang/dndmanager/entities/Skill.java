@@ -13,18 +13,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Skill {
-    @Expose
+    @Expose(serialize = false)
     private long id;
 
     @JsonIgnore
-    private Character character;
     private long characterID;
 
-    @Expose
+    int trainCoefficient;
+    boolean canBeTrained;
+    int value;
     String name;
-    @Expose
     String definition;
-    @Expose
     String description;
+    boolean trait;
+
 }
 
