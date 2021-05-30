@@ -4,84 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_fragments.CharacterInfoEdit" >
+    tools:context=".character.CharacterInfoEdit" >
 
     <EditText
         android:id="@+id/etEditCharacterName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Enter Name"
-        android:inputType="textPersonName"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/name_str"
+        android:inputType="textPersonName"
+
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etEditCharacterRace"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Enter Race"
-        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/race_str"
+        android:inputType="textPersonName"
+
         app:layout_constraintTop_toBottomOf="@+id/etEditCharacterName" />
 
     <EditText
         android:id="@+id/etEditCharacterClass"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Enter Class"
-        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/class_str"
+        android:inputType="textPersonName"
+
         app:layout_constraintTop_toBottomOf="@+id/etEditCharacterRace" />
 
     <EditText
         android:id="@+id/etEditCharacterAlignment"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="EnterAlignment"
-        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/alignment_str"
+        android:inputType="textPersonName"
         app:layout_constraintTop_toBottomOf="@+id/etEditCharacterClass" />
 
     <EditText
         android:id="@+id/etEditCharacterLvl"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Enter lvl"
-        android:inputType="number"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/lvl_str"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/etEditCharacterAlignment" />
 
     <EditText
         android:id="@+id/etEditCharacterMoney"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Enter Money"
-        android:inputType="number"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/money_str"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/etEditCharacterLvl" />
 
     <EditText
         android:id="@+id/etEditCharacterHealth"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Enter Max Health Points"
-        android:inputType="number"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:ems="10"
+        android:hint="@string/max_hp_str"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/etEditCharacterMoney" />
 
     <Button
@@ -91,9 +114,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:text="Save"
+        android:layout_marginBottom="8dp"
+        android:text="@string/save_str"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEditCharacterHealth" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditCharacterHealth"
+        app:layout_constraintVertical_bias="0.90999997" />
 </androidx.constraintlayout.widget.ConstraintLayout>

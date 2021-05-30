@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.devegang.dndmanager.R;
+import ru.devegang.dndmanager.dialogs.ChooseTypeOfCreationDialog;
 import ru.devegang.dndmanager.entities.Character;
 import ru.devegang.dndmanager.networking.CharacterLoader;
 import ru.devegang.dndmanager.networking.CharacterLoaderStatus;
@@ -48,7 +50,7 @@ public class CharactersList extends Fragment {
     private FloatingActionButton addButton;
     private SharedPreferences preferences;
 
-    CharactersHandler handler;
+//    CharactersHandler handler;
     CharacterLoader loader;
 
 
@@ -103,6 +105,8 @@ public class CharactersList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_characters_list, container, false);
+        getActivity().setTitle("Список персонажей");
+
         recyclerView = (RecyclerView)rootView.findViewById(R.id.rvCharactersList);
         characters = new ArrayList<>();  //getExampleCharacters();
         adapter = new CharactersRecyclerViewAdapter(this,characters);
@@ -113,21 +117,26 @@ public class CharactersList extends Fragment {
 
 
 
+
         preferences = getActivity().getSharedPreferences("USER_INF", MODE_PRIVATE);
         long id = preferences.getLong("USER_ID",-1);
         if (id != -1) {
 //            loader = new CharacterLoader(id);
 //            loader.loadAllCharacters(handler);
 
-            NetworkService.getInstance()
-                    .getRestCharacterAPI()
-                    .getCharactersList(id)
+            NetworkService.getInstance().getRestCharacterAPIv2().getUserCharacters(id)
+//                    .getRestCharacterAPI()
+//                    .getCharactersList(id)
                     .enqueue(new Callback<List<Character>>() {
                         @Override
                         public void onResponse(Call<List<Character>> call, Response<List<Character>> response) {
                             List<Character>  responseList = response.body();
-                            characters.addAll(responseList);
-                            recyclerView.getAdapter().notifyDataSetChanged();
+                            if(responseList != null && !responseList.isEmpty()) {
+                                characters.addAll(responseList);
+                                recyclerView.getAdapter().notifyDataSetChanged();
+                            } else {
+                                Toast.makeText(getContext(),"Oops, it's empty here",Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -150,7 +159,14 @@ public class CharactersList extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.characterInfoEdit);
+//                FragmentManager manager = getChildFragmentManager();
+//                ChooseTypeOfCreationDialog dialog = new ChooseTypeOfCreationDialog();
+//                dialog.show(manager,"ccDialog");
+
+                Bundle bundle = new Bundle();
+                bundle.putLong("CharacterID", -1);
+                Navigation.findNavController(view).navigate(R.id.characterActivity);
+                //Navigation.findNavController(view).navigate(R.id.characterInfoEdit);
             }
         });
 //
@@ -169,54 +185,37 @@ public class CharactersList extends Fragment {
     }
 
 
-    private List<Character> getExampleCharacters() {
-        List<Character> characters = new ArrayList<>();
-        Character c1 = new Character();
-        c1.setName("David");
-        c1.setClassC("Paladin");
-        c1.setRace("Human");
-        Character c2 = new Character();
-        c2.setName("Laura");
-        c2.setRace("Elf");
-        c2.setClassC("Wizard");
-        Character c3 = new Character();
-        c3.setName("Richard");
-        c3.setRace("Half-elf");
-        c3.setClassC("Druid");
-
-        characters.add(c1);
-        characters.add(c2);
-        characters.add(c3);
-
-        return characters;
-    }
 
     private void upgradeCharactersList(List<Character> characters){
         adapter.addCharacters(characters);
     }
 
-    static class CharactersHandler extends Handler {
-        WeakReference<CharactersList> charactersFragmentWeakReference;
-        public CharactersHandler(CharactersList fragment) {
-            charactersFragmentWeakReference = new WeakReference<>(fragment);
-        }
+//    static class CharactersHandler extends Handler {
+//        WeakReference<CharactersList> charactersFragmentWeakReference;
+//        public CharactersHandler(CharactersList fragment) {
+//            charactersFragmentWeakReference = new WeakReference<>(fragment);
+//        }
+//
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+//            super.handleMessage(msg);
+//            CharactersList charactersFragment = charactersFragmentWeakReference.get();
+//            if(charactersFragment != null) {
+//                CharacterLoaderStatus status = CharacterLoaderStatus.getStatus(msg.what);
+//                switch (status) {
+//                    case OK: charactersFragment.upgradeCharactersList((ArrayList<Character>)msg.obj);
+//                        break;
+//                    case NOT_FOUND:
+//                    case ERROR:
+//                        System.out.print("EMPTY");
+//                }
+//            }
+//
+//        }
+//    }
 
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            CharactersList charactersFragment = charactersFragmentWeakReference.get();
-            if(charactersFragment != null) {
-                CharacterLoaderStatus status = CharacterLoaderStatus.getStatus(msg.what);
-                switch (status) {
-                    case OK: charactersFragment.upgradeCharactersList((ArrayList<Character>)msg.obj);
-                        break;
-                    case NOT_FOUND:
-                    case ERROR:
-                        System.out.print("EMPTY");
-                }
-            }
 
-        }
-    }
+
+
 
 }

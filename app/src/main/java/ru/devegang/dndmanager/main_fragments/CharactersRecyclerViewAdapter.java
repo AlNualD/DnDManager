@@ -1,5 +1,7 @@
 package ru.devegang.dndmanager.main_fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,9 +75,12 @@ public class CharactersRecyclerViewAdapter extends RecyclerView.Adapter<Characte
            Toast.makeText(charactersList.getContext(), character.getName(), Toast.LENGTH_LONG).show();
 
 
+//           SharedPreferences preferences = charactersList.getActivity().getSharedPreferences("CHARACTER", Context.MODE_PRIVATE);
+//           preferences.
            Bundle bundle = new Bundle();
            bundle.putLong("CharacterID",character.getId());
-           Navigation.findNavController(charactersList.getView()).navigate(R.id.action_open_character,bundle);
+//           Navigation.findNavController(charactersList.getView()).navigate(R.id.action_open_character,bundle);
+           Navigation.findNavController(charactersList.getView()).navigate(R.id.characterActivity,bundle);
 
 
        }

@@ -1,12 +1,15 @@
-package ru.devegang.dndmanager.main_fragments;
+package ru.devegang.dndmanager.character;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,44 +47,27 @@ public class CharacterInfoEdit extends Fragment {
 
     private Character character;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public CharacterInfoEdit() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CharacterInfoEdit.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CharacterInfoEdit newInstance(String param1, String param2) {
+
+    public static CharacterInfoEdit newInstance() {
         CharacterInfoEdit fragment = new CharacterInfoEdit();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -89,6 +75,7 @@ public class CharacterInfoEdit extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_character_info_edit, container, false);
+        getActivity().setTitle("Редактирование");
 
         characterName = (EditText) rootView.findViewById(R.id.etEditCharacterName);
         characterClass = (EditText) rootView.findViewById(R.id.etEditCharacterClass);
@@ -106,7 +93,7 @@ public class CharacterInfoEdit extends Fragment {
             //edit
             character.setId(characterId);
             NetworkService.getInstance()
-                    .getRestCharacterAPI()
+                    .getRestCharacterAPIv2()
                     .getCharacter(characterId)
                     .enqueue(new Callback<Character>() {
                         @Override
@@ -140,25 +127,47 @@ public class CharacterInfoEdit extends Fragment {
                 preferences = getActivity().getSharedPreferences("USER_INF", MODE_PRIVATE);
                 long id = preferences.getLong("USER_ID",-1);
 
-                if(id != -1) {
-                    NetworkService.getInstance()
-                            .getRestCharacterAPI()
-                            .postCharacter(id,character)
-                            .enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    Navigation.findNavController(getView()).navigate(R.id.charactersList);
+                if(characterId==-1){
 
-                                }
+                    if(id != -1) {
+                        NetworkService.getInstance()
+                                .getRestCharacterAPIv2()
+                                .createCharacter(id, character)
+                                .enqueue(new Callback<Character>() {
+                                    @Override
+                                    public void onResponse(Call<Character> call, Response<Character> response) {
+                                        if(response.isSuccessful()) {
+                                            SharedPreferences preferencesCharacter = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
+                                            preferencesCharacter.edit().putLong("CharacterID", response.body().getId());
+                                            Navigation.findNavController(getView()).navigate(R.id.characterInfoFull);
+                                        }
+                                    }
 
-                                @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(getContext(),"Smth wrong", Toast.LENGTH_SHORT).show();
+                                    @Override
+                                    public void onFailure(Call<Character> call, Throwable t) {
 
-                                }
-                            });
+                                    }
+                                });
+                    }
                 } else {
-                    System.out.print("Cant get prefs");
+
+                        NetworkService.getInstance()
+                                .getRestCharacterAPIv2()
+                                .updateCharacter(characterId, character)
+                                .enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        Navigation.findNavController(getView()).navigate(R.id.mainActivity2);
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                        Toast.makeText(getContext(), "Smth wrong", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+
                 }
 
 
