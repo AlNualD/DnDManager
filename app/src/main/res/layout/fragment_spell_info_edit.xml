@@ -6,15 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".main_fragments.SpellInfoEdit" >
 
+    <CheckBox
+        android:id="@+id/cbEditSpellactivateFormula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:buttonTint="@color/primary_bronze_70"
+        android:checked="false"
+        android:text="@string/add_formula_str"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/primary_bronze"
+        android:textColorHint="@color/primary_bronze_45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEditSpellName" />
+
+    <EditText
+        android:id="@+id/etEditSpellDicesAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:inputType="textPersonName"
+        android:text="@string/_1"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/cbEditSpellactivateFormula"
+        app:layout_constraintTop_toBottomOf="@+id/etEditSpellName" />
+
+    <TextView
+        android:id="@+id/tvSpellEditd"
+        android:layout_width="13dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/d"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/etEditSpellDicesAmount"
+        app:layout_constraintTop_toBottomOf="@+id/etEditSpellName" />
+
+    <EditText
+        android:id="@+id/etSpellEditDice"
+        android:layout_width="31dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/_20"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/tvSpellEditd"
+        app:layout_constraintTop_toBottomOf="@+id/etEditSpellName" />
+
+    <EditText
+        android:id="@+id/etSpellEditModif"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/_add1"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/etSpellEditDice"
+        app:layout_constraintTop_toBottomOf="@+id/etEditSpellName" />
+
     <EditText
         android:id="@+id/etEditSpellName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Spell name"
+        android:hint="@string/item_name_str"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,24 +85,25 @@
         android:id="@+id/etEditSpellDefinition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Spell short definition"
+        android:hint="@string/short_description"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEditSpellName" />
+        app:layout_constraintTop_toBottomOf="@+id/cbEditSpellactivateFormula" />
 
     <EditText
         android:id="@+id/etEditSpellDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Spell description"
+        android:hint="@string/add_some_details_to_spell"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,11 +113,14 @@
         android:id="@+id/bSaveSpell"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:text="SAVE"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/save_str"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEditSpellDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditSpellDescription"
+        app:layout_constraintVertical_bias="0.94" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package ru.devegang.dndmanager.main_fragments;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
@@ -18,11 +20,13 @@ public class SpellsRecyclerViewAdapter extends RecyclerView.Adapter<SpellsViewHo
     private List<Spell> spells;
     private LayoutInflater layoutInflater;
     private WeakReference<SpellsList> spellsListWeakReference;
+    final  int resID;
 
-    public SpellsRecyclerViewAdapter(SpellsList spellsList, List<Spell>spells) {
+    public SpellsRecyclerViewAdapter(SpellsList spellsList, List<Spell>spells, int resID) {
         this.spells = spells;
         spellsListWeakReference = new WeakReference<>(spellsList);
         layoutInflater = LayoutInflater.from(spellsList.getContext());
+        this.resID = resID;
     }
 
     @NonNull
@@ -57,6 +61,11 @@ public class SpellsRecyclerViewAdapter extends RecyclerView.Adapter<SpellsViewHo
         SpellsList spellsList = spellsListWeakReference.get();
         if(spellsList != null) {
             Toast.makeText(spellsList.getContext(), spell.getName(), Toast.LENGTH_LONG).show();
+
+
+            Bundle bundle = new Bundle();
+            bundle.putLong("SpellID",spell.getId());
+            Navigation.findNavController(spellsList.getView()).navigate(resID, bundle);
 
         }
     }

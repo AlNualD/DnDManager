@@ -42,46 +42,28 @@ public class SpellsList extends Fragment {
     private SharedPreferences preferences;
 
     List<Spell> spells;
+    List<Spell> full;
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+    long characterID;
 
     public SpellsList() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SpellsList.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static SpellsList newInstance(String param1, String param2) {
         SpellsList fragment = new SpellsList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -89,19 +71,29 @@ public class SpellsList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_spells_list, container, false);
+        getActivity().setTitle("Список заклинаний");
+
+        preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
+        characterID = preferences.getLong("CharacterID", -1);
+        final int resID = characterID == -1 ? R.id.spellInfo2 : R.id.spellInfo;
+
         recyclerView = (RecyclerView)rootView.findViewById(R.id.rvSpellsList);
         spells = new ArrayList<>();
-        adapter = new SpellsRecyclerViewAdapter(this,spells);
+        full = new ArrayList<>();
+        adapter = new SpellsRecyclerViewAdapter(this,spells, resID);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         addSpell = (FloatingActionButton)rootView.findViewById(R.id.fabAddSpell);
-        preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
-        long characterID = preferences.getLong("CHARACTER_ID", -1);
+        addSpell.setActivated(false);
+        addSpell.setVisibility(View.GONE);
+
         if (characterID>0) {
+            addSpell.setActivated(true);
+            addSpell.setVisibility(View.VISIBLE);
             NetworkService.getInstance()
-                    .getRestCharacterAPI()
+                    .getRestCharacterAPIv2()
                     .getCharacterSpells(characterID)
                     .enqueue(new Callback<List<Spell>>() {
                         @Override
@@ -110,6 +102,7 @@ public class SpellsList extends Fragment {
                                 List<Spell> responseList = response.body();
                                 spells.addAll(responseList);
                                 recyclerView.getAdapter().notifyDataSetChanged();
+                                full.addAll(responseList);
                             } else {
                                 Toast.makeText(getContext(),"Its empty here", Toast.LENGTH_SHORT).show();
                             }
@@ -128,7 +121,7 @@ public class SpellsList extends Fragment {
 
             if(id != -1){
                 NetworkService.getInstance()
-                        .getRestCharacterAPI()
+                        .getRestCharacterAPIv2()
                         .getUserSpells(id)
                         .enqueue(new Callback<List<Spell>>() {
                             @Override
@@ -153,10 +146,16 @@ public class SpellsList extends Fragment {
         addSpell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.spellsList);
+                Bundle bundle = new Bundle();
+                bundle.putLong("SpellID", -1);
+//                Navigation.findNavController(view).navigate(R.id.spellsList, bundle);
+                Navigation.findNavController(view).navigate(R.id.spellInfoEdit,bundle);
             }
         });
 
+
+
         return rootView;
     }
+
 }
