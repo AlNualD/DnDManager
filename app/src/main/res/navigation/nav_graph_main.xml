@@ -11,11 +11,11 @@
         android:label="fragment_skills_list"
         tools:layout="@layout/fragment_skills_list" >
         <action
-            android:id="@+id/action_open_skill"
-            app:destination="@id/skillInfo" />
+            android:id="@+id/action_skillsList_to_skillInfo2"
+            app:destination="@id/skillInfo2" />
         <action
-            android:id="@+id/action_add_skill"
-            app:destination="@id/skillInfoEdit" />
+            android:id="@+id/action_skillsList_to_skillInfoEdit2"
+            app:destination="@id/skillInfoEdit2" />
     </fragment>
     <fragment
         android:id="@+id/spellsList"
@@ -23,11 +23,11 @@
         android:label="fragment_spells_list"
         tools:layout="@layout/fragment_spells_list" >
         <action
-            android:id="@+id/action_add_spell"
-            app:destination="@id/spellInfoEdit" />
+            android:id="@+id/action_spellsList_to_spellInfo2"
+            app:destination="@id/spellInfo2" />
         <action
-            android:id="@+id/action_open_spell"
-            app:destination="@id/spellInfo" />
+            android:id="@+id/action_spellsList_to_spellInfoEdit2"
+            app:destination="@id/spellInfoEdit2" />
     </fragment>
     <fragment
         android:id="@+id/charactersList"
@@ -35,79 +35,32 @@
         android:label="fragment_characters_list"
         tools:layout="@layout/fragment_characters_list" >
         <action
-            android:id="@+id/action_open_character"
-            app:destination="@id/characterInfo" />
-        <action
-            android:id="@+id/action_add_character"
-            app:destination="@id/characterInfoEdit" />
+            android:id="@+id/action_charactersList_to_characterActivity"
+            app:destination="@id/characterActivity" />
     </fragment>
+    <activity
+        android:id="@+id/characterActivity"
+        android:name="ru.devegang.dndmanager.character.CharacterActivity"
+        android:label="CharacterActivity"
+        tools:layout="@layout/fragment_character_info_full"/>
     <fragment
-        android:id="@+id/characterInfo"
-        android:name="ru.devegang.dndmanager.main_fragments.CharacterInfo"
-        android:label="fragment_character_info"
-        tools:layout="@layout/fragment_character_info" >
-        <argument
-            android:name="CharacterID"
-            app:argType="long"
-            android:defaultValue="-1L" />
-        <action
-            android:id="@+id/action_edit_character"
-            app:destination="@id/characterInfoEdit" />
-    </fragment>
-    <fragment
-        android:id="@+id/characterInfoEdit"
-        android:name="ru.devegang.dndmanager.main_fragments.CharacterInfoEdit"
-        android:label="fragment_character_info_edit"
-        tools:layout="@layout/fragment_character_info_edit" >
-        <argument
-            android:name="CharacterID"
-            app:argType="long"
-            android:defaultValue="-1L" />
-    </fragment>
-    <fragment
-        android:id="@+id/skillInfo"
-        android:name="ru.devegang.dndmanager.main_fragments.SkillInfo"
-        android:label="fragment_skill_info"
-        tools:layout="@layout/fragment_skill_info" >
-        <argument
-            android:name="SkillID"
-            app:argType="long"
-            android:defaultValue="-1L" />
-        <action
-            android:id="@+id/action_edit_skill"
-            app:destination="@id/skillInfoEdit" />
-    </fragment>
-    <fragment
-        android:id="@+id/skillInfoEdit"
-        android:name="ru.devegang.dndmanager.main_fragments.SkillInfoEdit"
-        android:label="fragment_skill_info_edit"
-        tools:layout="@layout/fragment_skill_info_edit" >
-        <argument
-            android:name="SkillID"
-            app:argType="long"
-            android:defaultValue="-1L" />
-    </fragment>
-    <fragment
-        android:id="@+id/spellInfo"
+        android:id="@+id/spellInfo2"
         android:name="ru.devegang.dndmanager.main_fragments.SpellInfo"
         android:label="fragment_spell_info"
-        tools:layout="@layout/fragment_spell_info" >
-        <action
-            android:id="@+id/action_edit_spell"
-            app:destination="@id/spellInfoEdit" />
-        <argument
-            android:name="SpellID"
-            app:argType="long"
-            android:defaultValue="-1L" />
-    </fragment>
+        tools:layout="@layout/fragment_spell_info" />
     <fragment
-        android:id="@+id/spellInfoEdit"
+        android:id="@+id/spellInfoEdit2"
         android:name="ru.devegang.dndmanager.main_fragments.SpellInfoEdit"
         android:label="fragment_spell_info_edit"
-        tools:layout="@layout/fragment_spell_info_edit" >
-        <argument
-            android:name="SpellID"
-            app:argType="long"
-            android:defaultValue="-1L" />
-    </fragment>
+        tools:layout="@layout/fragment_spell_info_edit" />
+    <fragment
+        android:id="@+id/skillInfo2"
+        android:name="ru.devegang.dndmanager.main_fragments.SkillInfo"
+        android:label="fragment_skill_info"
+        tools:layout="@layout/fragment_skill_info" />
+    <fragment
+        android:id="@+id/skillInfoEdit2"
+        android:name="ru.devegang.dndmanager.main_fragments.SkillInfoEdit"
+        android:label="fragment_skill_info_edit"
+        tools:layout="@layout/fragment_skill_info_edit" />
 </navigation>
