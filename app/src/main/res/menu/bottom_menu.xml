@@ -11,5 +11,6 @@
         android:title="Spells" />
     <item
         android:id="@+id/skillsList"
+        android:icon="@drawable/ic_skills"
         android:title="Skills" />
 </menu>
