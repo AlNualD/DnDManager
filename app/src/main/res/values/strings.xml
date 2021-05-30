@@ -24,4 +24,57 @@
     <string name="login">Login</string>
     <string name="log_in">LOG IN</string>
     <string name="name">Name</string>
+    <string name="create_str">СОЗДАТЬ</string>
+    <string name="log_in_str">ВОЙТИ</string>
+    <string name="login_str">Логин</string>
+    <string name="password_str">Пароль</string>
+    <string name="name_str">Имя</string>
+    <string name="create_acc_str">СОЗДАТЬ АККАУНТ</string>
+    <string name="add_str">ДОБАВИТЬ</string>
+    <string name="save_str">СОХРАНИТЬ</string>
+    <string name="item_name_str">Введите название</string>
+    <string name="enter_value_str">Введите значение</string>
+    <string name="new_attr_str">Новый атрибут</string>
+    <string name="has_saveroll_str">владеет спасброском</string>
+    <string name="weight_str">Вес</string>
+    <string name="new_item_str">Новая вещь</string>
+    <string name="add_formula_str">Добавить формулу урона</string>
+    <string name="d">d</string>
+    <string name="_add1">+1</string>
+    <string name="_20">20</string>
+    <string name="_1">1</string>
+    <string name="roll_res_str">Результат броска</string>
+    <string name="loading_str">Загрузка</string>
+    <string name="ok_str">ОК</string>
+    <string name="alignment_str">Мировозрение</string>
+    <string name="cancel_str">ОТМЕНА</string>
+    <string name="race_str">Раса</string>
+    <string name="class_str">Класс</string>
+    <string name="lvl_str">Уровень</string>
+    <string name="money_str">Монеты</string>
+    <string name="max_hp_str">Максиальное здоровье</string>
+    <string name="attr_str">Атрибуты</string>
+    <string name="alignment_info_full">Мировозрение:</string>
+    <string name="add_inf_str">Подробности</string>
+    <string name="add_notes_str">Здесь вы можете оставить заметки о персонаже</string>
+    <string name="description_str">Описание</string>
+    <string name="short_description">Краткое описание</string>
+    <string name="add_some_details_str">Здесь вы можете описать ваш навык более детально</string>
+    <string name="add_attr_string">Добавить атрибут</string>
+    <string name="cam_be_trained_str">Можно тренировать</string>
+    <string name="add_some_details_to_spell">Здесь вы можете описать ваше заклинание более детально</string>
+
+    <string-array name="rollingModes">
+        <item>Помеха</item>
+        <item>Обычный</item>
+        <item>Преимущество</item>
+    </string-array>
+
+    <string-array name="skillCoeff">
+        <item>Талант</item>
+        <item>Не владеет</item>
+        <item>Владеет</item>
+        <item>Мастерство</item>
+    </string-array>
+
 </resources>

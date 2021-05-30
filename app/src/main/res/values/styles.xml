@@ -23,5 +23,6 @@
         <item name="android:textColor">@color/primary_bronze_45</item>
         <item name="strokeColor">@color/primary_bronze_45</item>
     </style>
+    
 
 </resources>
