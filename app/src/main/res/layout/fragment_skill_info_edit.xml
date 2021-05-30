@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_fragments.SkillInfoEdit" >
+    android:background="@color/background_light"
+    tools:context=".main_fragments.SkillInfoEdit">
 
     <EditText
         android:id="@+id/etEditSkillName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Enter Skill Name"
+        android:hint="@string/item_name_str"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,41 +25,126 @@
         android:id="@+id/etEditSkillDefinition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Enter Short Definition"
+        android:hint="@string/short_description"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEditSkillName" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditSkillValue" />
 
     <EditText
         android:id="@+id/etEditSkillDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Here you can describe your skill"
+        android:hint="@string/add_some_details_str"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/bSaveSkill"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEditSkillDefinition" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSkillEditCoeff"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/bSaveSkill"
         android:layout_width="0dp"
         android:layout_height="53dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:text="Save"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/save_str"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerSkillAttributeChoise"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbSkillEditAddAttr" />
+
+    <CheckBox
+        android:id="@+id/cbSkillEditAddAttr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/add_attr_string"
+        android:buttonTint="@color/primary_bronze_70"
+        android:checked="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/primary_bronze"
+        android:textColorHint="@color/primary_bronze_45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEditSkillDefinition" />
+
+    <Spinner
+        android:id="@+id/spinnerSkillEditCoeff"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/skillCoeff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbSkillEditCanBeTrained" />
+
+    <CheckBox
+        android:id="@+id/cbSkillEditCanBeTrained"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/cam_be_trained_str"
+        android:buttonTint="@color/primary_bronze_70"
+        android:checked="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/primary_bronze"
+        android:textColorHint="@color/primary_bronze_45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSkillAttributeChoise" />
+
+    <EditText
+        android:id="@+id/etEditSkillValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Значение (автоматический подсчет если оставить поле пустым и добавить атрибут)"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbEditSkillChangeValue" />
+
+    <CheckBox
+        android:id="@+id/cbEditSkillChangeValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Изменить значение"
+        android:buttonTint="@color/primary_bronze_70"
+        android:textColor="@color/primary_bronze"
+        android:textColorHint="@color/primary_bronze_45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEditSkillDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditSkillName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

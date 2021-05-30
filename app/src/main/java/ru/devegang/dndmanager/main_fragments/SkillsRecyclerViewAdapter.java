@@ -22,10 +22,12 @@ public class SkillsRecyclerViewAdapter extends RecyclerView.Adapter<SkillsViewHo
     private List<Skill> skills;
     private LayoutInflater layoutInflater;
     private WeakReference<SkillsList> skillsListWeakReference;
-    public SkillsRecyclerViewAdapter(SkillsList skillsList, List<Skill> skills) {
+    final int resID;
+    public SkillsRecyclerViewAdapter(SkillsList skillsList, List<Skill> skills, int resID) {
         this.skills = skills;
         skillsListWeakReference = new WeakReference<>(skillsList);
         this.layoutInflater = LayoutInflater.from(skillsList.getContext());
+        this.resID = resID;
     }
 
 
@@ -48,6 +50,11 @@ public class SkillsRecyclerViewAdapter extends RecyclerView.Adapter<SkillsViewHo
         Skill skill = this.skills.get(position);
         holder.skillName.setText(skill.getName());
         holder.skillDescription.setText(skill.getDefinition());
+        if(!skill.isTrait()) {
+            holder.value.setText(String.valueOf(skill.getValue()));
+        } else {
+            holder.cardVal.setVisibility(View.GONE);
+        }
 
     }
 
@@ -67,7 +74,7 @@ public class SkillsRecyclerViewAdapter extends RecyclerView.Adapter<SkillsViewHo
 
             Bundle bundle = new Bundle();
             bundle.putLong("SkillID",skill.getId());
-            Navigation.findNavController(skillsList.getView()).navigate(R.id.action_open_skill,bundle);
+            Navigation.findNavController(skillsList.getView()).navigate(resID, bundle);
 
 
         }

@@ -8,6 +8,7 @@
     android:layout_marginTop="5sp"
     android:layout_marginRight="5sp"
     android:layout_marginBottom="5sp"
+    app:cardBackgroundColor="@color/background_light"
     app:cardCornerRadius="6dp"
     app:cardElevation="6dp">
 
@@ -17,23 +18,60 @@
 
         <TextView
             android:id="@+id/tvSkillName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            app:layout_constraintEnd_toStartOf="@+id/cvCardValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvSkillShortDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/cvCardValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSkillFormula" />
+
+        <TextView
+            android:id="@+id/tvSkillFormula"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/cvCardValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSkillName" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCardValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="@color/background_light"
+            app:cardCornerRadius="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvCardSkillValue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/primary_bronze"
+                android:textSize="36sp" />
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

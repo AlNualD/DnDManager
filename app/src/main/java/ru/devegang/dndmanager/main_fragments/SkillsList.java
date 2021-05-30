@@ -54,6 +54,8 @@ public class SkillsList extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    long characterID;
+
     public SkillsList() {
         // Required empty public constructor
     }
@@ -90,21 +92,32 @@ public class SkillsList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_skills_list, container, false);
+        getActivity().setTitle("Список навыков");
+
+        preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
+        characterID = preferences.getLong("CharacterID", -1);
+
+        final int resID = characterID==-1 ? R.id.skillInfo2 : R.id.skillInfo;
         recyclerView = (RecyclerView)rootView.findViewById(R.id.rvSkillsList);
         skills = new ArrayList<>();
-        adapter = new SkillsRecyclerViewAdapter(this,skills);
+        adapter = new SkillsRecyclerViewAdapter(this,skills, resID);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
         addButton = (FloatingActionButton)rootView.findViewById(R.id.fabAddSkill);
+        addButton.setActivated(false);
+        addButton.setVisibility(View.GONE);
 
-        preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
-        long characterID = preferences.getLong("CHARACTER_ID", -1);
+
+
+
         if (characterID>0) {
+            addButton.setActivated(true);
+            addButton.setVisibility(View.VISIBLE);
             NetworkService.getInstance()
-                    .getRestCharacterAPI()
+                    .getRestCharacterAPIv2()
                     .getCharacterSkills(characterID)
                     .enqueue(new Callback<List<Skill>>() {
                         @Override
@@ -156,7 +169,9 @@ public class SkillsList extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.skillInfoEdit);
+                Bundle bundle = new Bundle();
+                bundle.putLong("SkillID", -1);
+                Navigation.findNavController(view).navigate(R.id.skillInfoEdit, bundle);
             }
         });
         return rootView;
