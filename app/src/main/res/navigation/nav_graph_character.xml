@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_character"
+    app:startDestination="@id/characterInfoFull">
+
+    <fragment
+        android:id="@+id/characterInfoFull"
+        android:name="ru.devegang.dndmanager.character.CharacterInfoFull"
+        android:label="fragment_character_info_full"
+        tools:layout="@layout/fragment_character_info_full" >
+        <action
+            android:id="@+id/action_characterInfoFull_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+        <action
+            android:id="@+id/action_characterInfoFull_to_characterInfoEdit"
+            app:destination="@id/characterInfoEdit" />
+        <action
+            android:id="@+id/action_characterInfoFull_to_characterCreateDnD1"
+            app:destination="@id/characterCreateDnD1" />
+        <action
+            android:id="@+id/action_characterInfoFull_to_inventoryList"
+            app:destination="@id/inventoryList" />
+        <action
+            android:id="@+id/action_characterInfoFull_to_skillsListCharacter"
+            app:destination="@id/skillsListCharacter" />
+        <action
+            android:id="@+id/action_characterInfoFull_to_spellsListCharacter"
+            app:destination="@id/spellsListCharacter" />
+        <action
+            android:id="@+id/action_characterInfoFull_to_attributesEdit"
+            app:destination="@id/attributesEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterInfoEdit"
+        android:name="ru.devegang.dndmanager.character.CharacterInfoEdit"
+        android:label="fragment_character_info_edit"
+        tools:layout="@layout/fragment_character_info_edit" />
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="ru.devegang.dndmanager.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/characterCreateDnD1"
+        android:name="ru.devegang.dndmanager.main_fragments.CharacterCreateDnD1"
+        android:label="fragment_character_creatednd1"
+        tools:layout="@layout/fragment_character_creatednd1" />
+    <fragment
+        android:id="@+id/attributesEdit"
+        android:name="ru.devegang.dndmanager.character.AttributesEdit"
+        android:label="AttributesEdit"
+        tools:layout="@layout/fragment_change_attributes"/>
+    <fragment
+        android:id="@+id/inventoryList"
+        android:name="ru.devegang.dndmanager.character.InventoryList"
+        android:label="InventoryList"
+        tools:layout="@layout/fragment_inventory"/>
+    <fragment
+        android:id="@+id/skillsListCharacter"
+        android:name="ru.devegang.dndmanager.main_fragments.SkillsList"
+        android:label="fragment_skills_list"
+        tools:layout="@layout/fragment_skills_list" >
+        <action
+            android:id="@+id/action_skillsListCharacter_to_skillInfo"
+            app:destination="@id/skillInfo" />
+        <action
+            android:id="@+id/action_skillsListCharacter_to_skillInfoEdit"
+            app:destination="@id/skillInfoEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/spellsListCharacter"
+        android:name="ru.devegang.dndmanager.main_fragments.SpellsList"
+        android:label="fragment_spells_list"
+        tools:layout="@layout/fragment_spells_list" >
+        <action
+            android:id="@+id/action_spellsListCharacter_to_spellInfo"
+            app:destination="@id/spellInfo" />
+        <action
+            android:id="@+id/action_spellsListCharacter_to_spellInfoEdit"
+            app:destination="@id/spellInfoEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/spellInfo"
+        android:name="ru.devegang.dndmanager.main_fragments.SpellInfo"
+        android:label="fragment_spell_info"
+        tools:layout="@layout/fragment_spell_info" />
+    <fragment
+        android:id="@+id/skillInfo"
+        android:name="ru.devegang.dndmanager.main_fragments.SkillInfo"
+        android:label="fragment_skill_info"
+        tools:layout="@layout/fragment_skill_info" />
+    <fragment
+        android:id="@+id/spellInfoEdit"
+        android:name="ru.devegang.dndmanager.main_fragments.SpellInfoEdit"
+        android:label="fragment_spell_info_edit"
+        tools:layout="@layout/fragment_spell_info_edit" />
+    <fragment
+        android:id="@+id/skillInfoEdit"
+        android:name="ru.devegang.dndmanager.main_fragments.SkillInfoEdit"
+        android:label="fragment_skill_info_edit"
+        tools:layout="@layout/fragment_skill_info_edit" />
+</navigation>
