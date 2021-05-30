@@ -29,7 +29,6 @@ public class LNRHostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lnr_host);
 
         navController = Navigation.findNavController(this,R.id.fragment_lnr_host);
-        //TODO check this
         SharedPreferences preferences = this.getSharedPreferences("USER_INF", MODE_PRIVATE);
         long id = preferences.getLong("USER_ID", -1);
         if(id!= -1) {
