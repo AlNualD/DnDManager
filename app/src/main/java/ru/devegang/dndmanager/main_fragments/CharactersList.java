@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -110,10 +111,11 @@ public class CharactersList extends Fragment {
                         public void onResponse(Call<List<Character>> call, Response<List<Character>> response) {
                             List<Character>  responseList = response.body();
                             if(responseList != null && !responseList.isEmpty()) {
+                                Collections.reverse(responseList);
                                 characters.addAll(responseList);
                                 recyclerView.getAdapter().notifyDataSetChanged();
                             } else {
-                                Toast.makeText(getContext(),"Oops, it's empty here",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(),"Пока здесь пусто... Создайте персонажа!",Toast.LENGTH_SHORT).show();
                             }
                         }
 
