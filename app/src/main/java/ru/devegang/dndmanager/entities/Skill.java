@@ -26,6 +26,9 @@ public class Skill {
     String definition;
     String description;
     boolean trait;
+    @Expose(serialize = false)
+    Attribute attribute;
+    Boolean favorite = false;
 
 }
 
