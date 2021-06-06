@@ -36,7 +36,7 @@ public interface RestCharacterAPIv2 {
     @PUT("v2/characters/skills")
     Call<Void> updateSkill(@Query("skill_id") long skill_id, @Body Skill skill);
     @POST("v2/characters/skills")
-    Call<Skill> createSkill(@Query("character_is") long character_id, @Body Skill skill);
+    Call<Skill> createSkill(@Query("character_id") long character_id, @Body Skill skill);
     @DELETE("v2/characters/skills")
     Call<Void> deleteSkill(@Query("skill_id") long skill_id);
     @GET("v2/characters/skills/attribute")
@@ -54,7 +54,7 @@ public interface RestCharacterAPIv2 {
     @GET("v2/characters/attributes")
     Call<List<Attribute>> getCharacterAttributes(@Query("character_id") long character_id);
     @PUT("v2/characters/attributes")
-    Call<Void> updateCharacterAttribute(@Query("attribute_id") long attribute_id);
+    Call<Void> updateCharacterAttribute(@Query("attribute_id") long attribute_id, @Body Attribute attribute);
     @POST("v2/characters/attributes")
     Call<Attribute> createAttribute(@Query("character_id")long character_id, @Body Attribute attribute);
     @POST("v2/characters/skills/{attribute_id}")
@@ -89,6 +89,23 @@ public interface RestCharacterAPIv2 {
     @PUT("v2/characters/lvlup")
     Call<Void> lvlUp(@Query("character_id") long character_id);
 
+    @PUT("v2/characters/picture")
+    Call<Void> setPictureUrl(long character_id, String url);
+
+    @PUT("v2/characters/spells/attributed")
+    Call<Void> updateSpellAttributed(@Query("spell_id") long spell_id, @Query("attribute_id") long attribute_id, @Body Spell spell);
+
+    @PUT("v2/characters/spell/attribute/set")
+    Call<Void> setSpellAttribute(@Query("spell_id") long spell_id, @Query("attribute_id") long attribute_id);
+
+    @PUT("v2/characters/skills/favorite")
+    Call<Void> setFavoriteSkill(@Query("skill_id") long skill_id, @Query("is_favorite") boolean isFavorite);
+
+    @PUT("v2/characters/spells/favorite")
+    Call<Void> setFavoriteSpell(@Query("spell_id") long skill_id, @Query("is_favorite") boolean isFavorite);
+
+    @PUT("v2/characters/items/favorite")
+    Call<Void> setFavoriteItem(@Query("item_id") long skill_id, @Query("is_favorite") boolean isFavorite);
 
 
 }
