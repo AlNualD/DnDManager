@@ -1,6 +1,7 @@
 package ru.devegang.dndmanager.main_fragments;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ public class SkillsViewHolder extends RecyclerView.ViewHolder {
     TextView formula;
     TextView value;
     CardView cardVal;
+    ImageButton favButton;
     public SkillsViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -23,6 +25,7 @@ public class SkillsViewHolder extends RecyclerView.ViewHolder {
         skillDescription = (TextView) itemView.findViewById(R.id.tvSkillShortDescription);
         value = (TextView) itemView.findViewById(R.id.tvCardSkillValue);
         cardVal = (CardView) itemView.findViewById(R.id.cvCardValue);
+        favButton = (ImageButton) itemView.findViewById(R.id.ibSkillCardFav);
 
     }
 }

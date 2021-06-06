@@ -146,7 +146,7 @@ public class SkillInfoEdit extends Fragment {
         skill = new Skill();
 
         preferences = getActivity().getSharedPreferences("CHARACTER", Context.MODE_PRIVATE);
-        long characterID = preferences.getLong("CHARACTER_ID", -1);
+        long characterID = preferences.getLong("CharacterID", -1);
         if(characterID!= -1) {
             skill.setCharacterID(characterID);
 
@@ -160,6 +160,7 @@ public class SkillInfoEdit extends Fragment {
                     .enqueue(new Callback<Skill>() {
                         @Override
                         public void onResponse(Call<Skill> call, Response<Skill> response) {
+                            skill = response.body();
                             setSkillInf(response.body());
                         }
 
@@ -245,7 +246,7 @@ public class SkillInfoEdit extends Fragment {
                                     if(attrId > 0) {
                                         NetworkService.getInstance()
                                                 .getRestCharacterAPIv2()
-                                                .addAttributeToSkill(skillId, attrId)
+                                                .addAttributeToSkill(response.body().getId(), attrId)
                                                 .enqueue(new Callback<Void>() {
                                                     @Override
                                                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -319,23 +320,28 @@ public class SkillInfoEdit extends Fragment {
                 attr.setVisibility(View.VISIBLE);
             }
 
-            NetworkService.getInstance()
-                    .getRestCharacterAPIv2()
-                    .getSkillAttribute(skillId)
-                    .enqueue(new Callback<Attribute>() {
-                        @Override
-                        public void onResponse(Call<Attribute> call, Response<Attribute> response) {
-                            if(response.isSuccessful()) {
-                                int pos = attributes.indexOf(response.body());
-                                attr.setSelection(pos);
-                            }
-                        }
+            if(skill.getAttribute() != null) {
+                int pos = attributes.indexOf(skill.getAttribute());
+                attr.setSelection(pos);
+            }
 
-                        @Override
-                        public void onFailure(Call<Attribute> call, Throwable t) {
-
-                        }
-                    });
+//            NetworkService.getInstance()
+//                    .getRestCharacterAPIv2()
+//                    .getSkillAttribute(skillId)
+//                    .enqueue(new Callback<Attribute>() {
+//                        @Override
+//                        public void onResponse(Call<Attribute> call, Response<Attribute> response) {
+//                            if(response.isSuccessful()) {
+//                                int pos = attributes.indexOf(response.body());
+//                                attr.setSelection(pos);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<Attribute> call, Throwable t) {
+//
+//                        }
+//                    });
 
         }
     }

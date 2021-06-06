@@ -131,8 +131,12 @@ public class SkillInfo extends Fragment {
         layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                RollingFormula rollingFormula = new RollingFormula(Modes.NORMAL, 1,20,0);
-                PopupMenu popupMenu = new PopupMenu(getContext(),layout);
+                int modif = 0;
+                if(!value.getText().toString().isEmpty()) {
+                    modif = Integer.parseInt(value.getText().toString());
+                }
+                RollingFormula rollingFormula = new RollingFormula(Modes.NORMAL, 1,20,modif);
+                PopupMenu popupMenu = new PopupMenu(getContext(),getView());
                 popupMenu.inflate(R.menu.rolling_menu);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -215,6 +219,10 @@ public class SkillInfo extends Fragment {
         skillName.setText(skill.getName());
         skillDefinition.setText(skill.getDefinition());
         skillDescription.setText(skill.getDescription());
+        if(!skill.isTrait()) {
         value.setText(String.valueOf(skill.getValue()));
+        } else {
+            value.setVisibility(View.GONE);
+        }
     }
 }
