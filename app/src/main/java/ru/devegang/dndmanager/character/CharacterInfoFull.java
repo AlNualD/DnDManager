@@ -128,7 +128,7 @@ public class CharacterInfoFull extends Fragment {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if(response.isSuccessful()) {
-
+                                        loadCharacter(id);
                                     }
                                 }
 
@@ -157,13 +157,11 @@ public class CharacterInfoFull extends Fragment {
                             SharedPreferences preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
                             preferences.edit().putInt("CharacterProfBonus",response.body().getProfBonus()).apply();
                         } else {
-                            Toast.makeText(getContext(),"Opps< smth went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Character> call, Throwable t) {
-                        Toast.makeText(getContext(),"Opps< smth went wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -174,10 +172,10 @@ public class CharacterInfoFull extends Fragment {
                     @Override
                     public void onResponse(Call<List<Attribute>> call, Response<List<Attribute>> response) {
                         if(response.isSuccessful()) {
+                            attributes.clear();
                             attributes.addAll(response.body());
                             attributesRecyclerView.getAdapter().notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(),"Opps< smth went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -197,6 +195,19 @@ public class CharacterInfoFull extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
+        long id = preferences.getLong("CharacterID", -1);
+
+//        Long id = getArguments().getLong("CharacterID",-1);
+        if(id != -1) {
+            System.out.print("All good");
+            loadCharacter(id);
+        };
     }
 
     @Nullable
@@ -356,6 +367,10 @@ public class CharacterInfoFull extends Fragment {
         pbHealth.setMax(character.getHp_max());
         pbHealth.setProgress(character.getHp_cur());
         cDescription.setText(character.getDescription());
+    }
+
+    private void loadCharacterInf() {
+
     }
 
 }

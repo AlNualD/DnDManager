@@ -114,8 +114,8 @@ public class AttributesRecyclerViewAdapter extends  RecyclerView.Adapter<Attribu
                                     if (attributesEditWeakReference != null) {
                                         AttributesEdit attributesEdit = attributesEditWeakReference.get();
                                         if (attributesEdit != null) {
-                                            attributes.remove(attribute.getId());
-                                            notifyDataSetChanged();
+//                                            attributes.remove(attribute.getId());
+//                                            notifyDataSetChanged();
 
                                             FragmentManager fragmentManager = attributesEdit.getParentFragmentManager();
                                             AttributeDialog attributeDialog = new AttributeDialog();
@@ -133,9 +133,15 @@ public class AttributesRecyclerViewAdapter extends  RecyclerView.Adapter<Attribu
                                             .enqueue(new Callback<Void>() {
                                                 @Override
                                                 public void onResponse(Call<Void> call, Response<Void> response) {
-                                                    if (response.isSuccessful()) {
-                                                        attributes.remove(attribute.getId());
+                                                    if (response.isSuccessful() || response.code() == 400) {
+                                                        attributes.remove(position);
                                                         notifyDataSetChanged();
+
+                                                    } else {
+                                                        AttributesEdit attributeEdit =  attributesEditWeakReference.get();
+                                                        if(attributeEdit != null) {
+                                                            Toast.makeText(attributeEdit.getContext(),"Есть зависимые навыки, удаление невозможно", Toast.LENGTH_SHORT).show();
+                                                        }
                                                     }
                                                 }
 
@@ -192,6 +198,10 @@ public class AttributesRecyclerViewAdapter extends  RecyclerView.Adapter<Attribu
 
             }
         });
+
+    }
+
+    private  void remove(int pos) {
 
     }
 

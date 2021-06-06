@@ -135,23 +135,44 @@ public class AttributesEdit extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
         long id = preferences.getLong("CharacterID", -1);
         if(id != -1) {
-            NetworkService.getInstance()
-                    .getRestCharacterAPIv2()
-                    .createAttribute(id,attribute)
-                    .enqueue(new Callback<Attribute>() {
-                        @Override
-                        public void onResponse(Call<Attribute> call, Response<Attribute> response) {
-                            if(response.isSuccessful()) {
-                                attributes.add(response.body());
+            if(attribute.getId() == -1){
+                NetworkService.getInstance()
+                        .getRestCharacterAPIv2()
+                        .createAttribute(id, attribute)
+                        .enqueue(new Callback<Attribute>() {
+                            @Override
+                            public void onResponse(Call<Attribute> call, Response<Attribute> response) {
+                                if (response.isSuccessful()) {
+//                                    attributes.removeIf(x -> x.getId() == response.body().getId());
+                                    attributes.add(response.body());
+                                    recyclerViewAttributes.getAdapter().notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Attribute> call, Throwable t) {
+                                Toast.makeText(getContext(), "Opps< smth went wrong", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else  {
+                NetworkService.getInstance()
+                        .getRestCharacterAPIv2()
+                        .updateCharacterAttribute(attribute.getId(), attribute)
+                        .enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                attribute.setModification(Attribute.countModification(attribute.getAmount()));
+                                attributes.removeIf(x -> x.getId() == attribute.getId());
+                                attributes.add(attribute);
                                 recyclerViewAttributes.getAdapter().notifyDataSetChanged();
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Attribute> call, Throwable t) {
-                            Toast.makeText(getContext(),"Opps< smth went wrong", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+
+                            }
+                        });
+            }
         }
     }
 
