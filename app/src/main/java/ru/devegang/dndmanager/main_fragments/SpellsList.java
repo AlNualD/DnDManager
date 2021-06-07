@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -100,6 +101,12 @@ public class SpellsList extends Fragment {
                         public void onResponse(Call<List<Spell>> call, Response<List<Spell>> response) {
                             if(response.code() == HttpStatus.OK.value()) {
                                 List<Spell> responseList = response.body();
+                                responseList.sort(new Comparator<Spell>() {
+                                    @Override
+                                    public int compare(Spell s1, Spell s2) {
+                                        return (int) (s1.getId() - s2.getId());
+                                    }
+                                });
                                 spells.addAll(responseList);
                                 recyclerView.getAdapter().notifyDataSetChanged();
                                 full.addAll(responseList);

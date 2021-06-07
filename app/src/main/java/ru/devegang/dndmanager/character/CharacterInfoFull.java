@@ -23,6 +23,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -174,6 +175,12 @@ public class CharacterInfoFull extends Fragment {
                         if(response.isSuccessful()) {
                             attributes.clear();
                             attributes.addAll(response.body());
+                            attributes.sort(new Comparator<Attribute>() {
+                                @Override
+                                public int compare(Attribute a1, Attribute a2) {
+                                    return (int) (a1.getId() - a2.getId());
+                                }
+                            });
                             attributesRecyclerView.getAdapter().notifyDataSetChanged();
                         } else {
                         }

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -78,6 +79,12 @@ public class InventoryList extends Fragment {
                         public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                             if(response.isSuccessful()) {
                                 items.addAll(response.body());
+                                items.sort(new Comparator<Item>() {
+                                    @Override
+                                    public int compare(Item i1, Item i2) {
+                                        return (int) (i1.getId() - i2.getId());
+                                    }
+                                });
                                 recyclerView.getAdapter().notifyDataSetChanged();
 
                                 updateCommonInf();

@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,6 +80,12 @@ public class AttributesEdit extends Fragment {
                         public void onResponse(Call<List<Attribute>> call, Response<List<Attribute>> response) {
                             if(response.isSuccessful()) {
                                 attributes.addAll(response.body());
+                                attributes.sort(new Comparator<Attribute>() {
+                                    @Override
+                                    public int compare(Attribute a1, Attribute a2) {
+                                        return (int) (a1.getId() - a2.getId());
+                                    }
+                                });
                                 recyclerViewAttributes.getAdapter().notifyDataSetChanged();
                                 SharedPreferences preferencesAttr = getActivity().getSharedPreferences("BASIC_COST",MODE_PRIVATE);
                                 if(!attributes.isEmpty() && preferencesAttr.getInt(String.valueOf(id),-2) < 0) {
