@@ -3,12 +3,16 @@ package ru.devegang.dndmanager.main_fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -65,7 +69,33 @@ public class SkillsList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.favorite_menu,menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.fav_menu_item) {
+            if(favFlag) {
+                item.setIcon(R.drawable.ic_favorite_star_outline);
+                favFlag=false;
+            } else {
+                item.setIcon(R.drawable.ic_favorite_star);
+                favFlag = true;
+            }
+            adapter.setFavFlag(favFlag);
+            recyclerView.swapAdapter(adapter,true);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -74,6 +104,8 @@ public class SkillsList extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_skills_list, container, false);
         getActivity().setTitle("Список навыков");
+        getActivity().invalidateOptionsMenu();
+        favFlag = false;
 
         preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
         characterID = preferences.getLong("CharacterID", -1);
@@ -91,22 +123,22 @@ public class SkillsList extends Fragment {
         addButton.setActivated(false);
         addButton.setVisibility(View.GONE);
 
-        showFavorites = (ImageButton) rootView.findViewById(R.id.ibShowSkillsFavorites);
-        showFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!favFlag) {
-                    showFavorites.setImageResource(R.drawable.ic_favorite_star);
-                    favFlag = true;
-                } else {
-                    showFavorites.setImageResource(R.drawable.ic_favorite_star_outline);
-                    favFlag = false;
-                }
-                //todo check this https://fooobar.com/questions/11720577/force-recyclerview-to-redraw-android
-                adapter.setFavFlag(favFlag);
-                recyclerView.swapAdapter(adapter,true);
-            }
-        });
+//        showFavorites = (ImageButton) rootView.findViewById(R.id.ibShowSkillsFavorites);
+//        showFavorites.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(!favFlag) {
+//                    showFavorites.setImageResource(R.drawable.ic_favorite_star);
+//                    favFlag = true;
+//                } else {
+//                    showFavorites.setImageResource(R.drawable.ic_favorite_star_outline);
+//                    favFlag = false;
+//                }
+//                //todo check this https://fooobar.com/questions/11720577/force-recyclerview-to-redraw-android
+//                adapter.setFavFlag(favFlag);
+//                recyclerView.swapAdapter(adapter,true);
+//            }
+//        });
 
 
 

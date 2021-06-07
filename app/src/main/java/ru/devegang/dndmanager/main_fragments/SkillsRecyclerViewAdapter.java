@@ -101,6 +101,13 @@ public class SkillsRecyclerViewAdapter extends RecyclerView.Adapter<SkillsViewHo
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 notifyItemChanged(position);
+                                if(favorites != null) {
+                                    if(skill.getFavorite()) {
+                                        favorites.add(skill);
+                                    } else {
+                                        favorites.removeIf(x -> x.getId() == skill.getId());
+                                    }
+                                }
                             }
 
                             @Override
@@ -123,6 +130,7 @@ public class SkillsRecyclerViewAdapter extends RecyclerView.Adapter<SkillsViewHo
     private void handleRecyclerItemClick(RecyclerView recyclerView, View itemView) {
         int itemPosition = recyclerView.getChildLayoutPosition(itemView);
         Skill skill;
+
         if(favFlag) {
             skill = this.favorites.get(itemPosition);
         }  else {
