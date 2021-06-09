@@ -217,7 +217,7 @@ public class SpellInfo extends Fragment {
         spellName.setText(spell.getName());
         spellDefinition.setText(spell.getDefinition());
         spellDescription.setText(spell.getDescription());
-        if(spell.getFormula().isEmpty()) {
+        if(spell.getFormula() == null || spell.getFormula().isEmpty()) {
             spellFormula.setText("");
             spellFormula.setVisibility(View.GONE);
         } else {
