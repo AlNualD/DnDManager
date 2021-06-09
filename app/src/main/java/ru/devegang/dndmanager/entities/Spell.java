@@ -24,4 +24,9 @@ public class Spell {
     String definition;
     String description;
     String formula;
+    Boolean favorite = false;
+    int difficulty = -1;
+    @Expose(serialize = false)
+    Attribute attribute;
+
 }

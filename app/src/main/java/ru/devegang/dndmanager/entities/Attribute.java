@@ -33,6 +33,10 @@ public class Attribute {
         this.amount = amount;
     }
 
+    public void setModification(int modification) {
+        this.modification = modification;
+    }
+
     public boolean checkAttribute() {
         return !name.isEmpty() && amount>0;
     }

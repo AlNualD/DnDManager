@@ -134,9 +134,9 @@ public class AttributeDialog extends DialogFragment {
         attribute.setAmount(Integer.parseInt(value.getText().toString()));
         attribute.setTrainedSaveRoll(cbIsTrained.isChecked());
 
-        if(attrId > 0) {
+
             attribute.setId(attrId);
-        }
+
 
         if(attribute.checkAttribute()) {
             //all good

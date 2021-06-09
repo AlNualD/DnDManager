@@ -38,6 +38,7 @@ public class Character {
     double money;
     int profBonus = 1;
     String description = "";
+    String url;
 
 
     @JsonIgnore

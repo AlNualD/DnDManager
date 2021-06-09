@@ -24,4 +24,5 @@ public class AuthService {
     public RestUserAPI getRestUserAPI() {
         return retrofit.create(RestUserAPI.class);
     }
+    public RestUserAPIv2 getRestUserAPIv2() {return retrofit.create(RestUserAPIv2.class);}
 }

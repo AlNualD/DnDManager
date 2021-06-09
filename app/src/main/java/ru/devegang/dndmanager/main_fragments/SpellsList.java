@@ -3,12 +3,16 @@ package ru.devegang.dndmanager.main_fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +49,8 @@ public class SpellsList extends Fragment {
     List<Spell> spells;
     List<Spell> full;
 
+    boolean favFlag = false;
+
 
 
 
@@ -63,7 +70,31 @@ public class SpellsList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.favorite_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.fav_menu_item) {
+            if(favFlag) {
+                item.setIcon(R.drawable.ic_favorite_star_outline);
+                favFlag=false;
+            } else {
+                item.setIcon(R.drawable.ic_favorite_star);
+                favFlag = true;
+            }
+            adapter.setFavFlag(favFlag);
+            recyclerView.swapAdapter(adapter,true);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -72,6 +103,9 @@ public class SpellsList extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_spells_list, container, false);
         getActivity().setTitle("Список заклинаний");
+
+        favFlag = false;
+        getActivity().invalidateOptionsMenu();
 
         preferences = getActivity().getSharedPreferences("CHARACTER", MODE_PRIVATE);
         characterID = preferences.getLong("CharacterID", -1);
@@ -100,9 +134,14 @@ public class SpellsList extends Fragment {
                         public void onResponse(Call<List<Spell>> call, Response<List<Spell>> response) {
                             if(response.code() == HttpStatus.OK.value()) {
                                 List<Spell> responseList = response.body();
+                                responseList.sort(new Comparator<Spell>() {
+                                    @Override
+                                    public int compare(Spell s1, Spell s2) {
+                                        return (int) (s1.getId() - s2.getId());
+                                    }
+                                });
                                 spells.addAll(responseList);
                                 recyclerView.getAdapter().notifyDataSetChanged();
-                                full.addAll(responseList);
                             } else {
                                 Toast.makeText(getContext(),"Its empty here", Toast.LENGTH_SHORT).show();
                             }
