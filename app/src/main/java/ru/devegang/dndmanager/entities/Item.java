@@ -20,6 +20,6 @@ public class Item {
     String definition;
     double weight = 0;
     String formula;
-    boolean favorite = false;
+    Boolean favorite = false;
 }
 

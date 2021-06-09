@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -40,13 +43,43 @@ public class InventoryList extends Fragment {
     TextView money;
     ImageButton add;
 
+    boolean favFlag = false;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.favorite_menu,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.fav_menu_item) {
+            if(favFlag) {
+                item.setIcon(R.drawable.ic_favorite_star_outline);
+                favFlag=false;
+            } else {
+                item.setIcon(R.drawable.ic_favorite_star);
+                favFlag = true;
+            }
+            adapter.setFavFlag(favFlag);
+            recyclerView.swapAdapter(adapter,true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inventory,container,false);
         getActivity().setTitle("Инвентарь");
+        favFlag = false;
 
         weight = (TextView) rootView.findViewById(R.id.tvInventoryWeight);
         money = (TextView) rootView.findViewById(R.id.tvItemsCount);

@@ -1,6 +1,7 @@
 package ru.devegang.dndmanager.character;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ public class InventoryViewHolder extends RecyclerView.ViewHolder {
     TextView weight;
     TextView description;
     CardView card;
+    ImageButton favButton;
 
     public InventoryViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -25,5 +27,6 @@ public class InventoryViewHolder extends RecyclerView.ViewHolder {
         formula =(TextView) itemView.findViewById(R.id.tvItemFormula);
         weight = (TextView) itemView.findViewById(R.id.tvItemWeight);
         description = (TextView) itemView.findViewById(R.id.tvItemDefinition);
+        favButton = (ImageButton) itemView.findViewById(R.id.ibItemCardFavorite);
     }
 }
