@@ -46,6 +46,7 @@
         android:autofillHints="@string/login"
         android:contentDescription="Логин"
         android:ems="10"
+        android:fontFamily="sans-serif"
         android:hint="@string/login_str"
         android:inputType="textPersonName"
         android:textAppearance="@style/FontBodyCaption"
